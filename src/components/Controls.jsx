@@ -8,6 +8,7 @@ const Controls = ({
     isPlaying,
     isLoading,
     progress,
+    duration = 0,
     onSeek,
     currentSession,
     onSwitchSession,
@@ -32,9 +33,10 @@ const Controls = ({
         handleSeek(e);
     }, [handleSeek]);
 
-    // Format time from progress
-    const formatTime = (prog) => {
-        const totalSeconds = Math.floor(prog * 300); // Assume ~5 min tracks
+    // Format time from seconds
+    const formatTime = (seconds) => {
+        if (!seconds || isNaN(seconds)) return "0:00";
+        const totalSeconds = Math.floor(seconds);
         const mins = Math.floor(totalSeconds / 60);
         const secs = totalSeconds % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -119,8 +121,8 @@ const Controls = ({
 
                         {/* Time indicators */}
                         <div className="flex justify-between text-[10px] text-white/30 tabular-nums">
-                            <span>{formatTime(progress)}</span>
-                            <span>5:00</span>
+                            <span>{formatTime(progress * duration)}</span>
+                            <span>{formatTime(duration)}</span>
                         </div>
                     </div>
 

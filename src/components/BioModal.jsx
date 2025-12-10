@@ -61,7 +61,7 @@ const BioModal = ({ isOpen, onClose }) => {
                                 transition={{ delay: 0.2 }}
                                 className="text-xs tracking-widest text-white/50 uppercase"
                             >
-                                Curaduría Sonora para Espacios
+                                Curaduría y arquitectura Sonora para Espacios
                             </motion.p>
                         </div>
 
@@ -76,7 +76,7 @@ const BioModal = ({ isOpen, onClose }) => {
                                 La música no es solo sonido, es la atmósfera que define un espacio. Con más de 10 años en la escena electrónica, <span className="text-white/90">EGO</span> se especializa en convertir entornos físicos en salas de escucha especializada.
                             </p>
                             <p className="text-sm leading-relaxed text-white/70 font-light">
-                                Lejos del consumo comercial masivo, mi propuesta eleva la identidad de restaurantes, bares y espacios elegantes a través de una curaduría sonora exquisita. Desde el Deep House y Lounge hasta texturas de Acid Jazz y World Music, diseño experiencias para audiencias que valoran la sofisticación.
+                                Lejos del consumo comercial masivo, la propuesta eleva la identidad de lugares como restaurantes, bares y espacios con estilo a través de una curaduría sonora exquisita. Desde el Microhouse, jazz, chill, Deep House y Lounge hasta texturas de Acid Jazz y World Music, diseño experiencias para audiencias que valoran la sofisticación.
                             </p>
                         </motion.div>
 
@@ -155,7 +155,7 @@ const BioModal = ({ isOpen, onClose }) => {
                             </div>
 
                             <p className="text-center text-xs text-white/30 mt-4">
-                                Cel + WhatsApp
+
                             </p>
                         </motion.div>
                     </motion.div>

@@ -20,7 +20,8 @@ function App() {
         currentSession,
         switchSession,
         trackName,
-        playlist
+        playlist,
+        duration
     } = useAudioAnalyzer('session1');
 
     const handleTogglePlay = useCallback(() => {
@@ -134,6 +135,7 @@ function App() {
                     isPlaying={isPlaying}
                     isLoading={isLoading}
                     progress={progress}
+                    duration={duration}
                     onSeek={seek}
                     currentSession={currentSession}
                     onSwitchSession={switchSession}
