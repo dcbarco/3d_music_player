@@ -22,7 +22,7 @@ const Playlist = forwardRef(({ currentSession, onSelectTrack, isOpen, onClose, o
             >
                 <Music2 className="w-4 h-4 text-white/60" />
                 <span className="text-xs tracking-wide text-white/80">
-                    {currentTrack?.title || 'Seleccionar'}
+                    Playlist
                 </span>
                 <ChevronDown className="w-3.5 h-3.5 text-white/40" />
             </motion.button>

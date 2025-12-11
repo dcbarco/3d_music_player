@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import { User } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { User, MessageCircle, Phone, ChevronDown } from 'lucide-react';
 import Visualizer from './components/Visualizer';
 import Controls from './components/Controls';
 import BioModal from './components/BioModal';
@@ -9,6 +9,10 @@ import { useAudioAnalyzer } from './hooks/useAudioAnalyzer';
 function App() {
     const [isBioOpen, setIsBioOpen] = useState(false);
     const [ripplePoint, setRipplePoint] = useState(null);
+    const [isCtaOpen, setIsCtaOpen] = useState(false);
+
+    const phoneNumber = '+573046814857';
+    const whatsappUrl = `https://wa.me/573046814857?text=Hola%20EGO,%20me%20interesa%20tu%20propuesta%20de%20curadur%C3%ADa%20sonora`;
 
     const {
         audioDataArray,
@@ -40,7 +44,7 @@ function App() {
 
     // Handle screen press START - activate glitch effect
     const handlePressStart = useCallback((e) => {
-        if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.seeker-container')) {
+        if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.seeker-container') || e.target.closest('.cta-dropdown')) {
             return;
         }
         const pos = getNormalizedPosition(e);
@@ -99,34 +103,82 @@ function App() {
                         </p>
                     </div>
 
-                    {/* CTA Button - User Icon Only */}
-                    <motion.button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setIsBioOpen(true);
-                        }}
-                        initial={{ scale: 0.9 }}
-                        animate={{ scale: [1, 1.05, 1] }}
-                        transition={{
-                            scale: {
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }
-                        }}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
-                        style={{
-                            background: 'linear-gradient(135deg, #FF0080 0%, #7928CA 50%, #FF0080 100%)',
-                            backgroundSize: '200% 200%',
-                            animation: 'gradient-shift 3s ease infinite',
-                            boxShadow: '0 0 30px rgba(255, 0, 128, 0.5), 0 0 60px rgba(121, 40, 202, 0.3)'
-                        }}
-                        aria-label="Conoce más sobre EGO"
-                    >
-                        <User className="w-5 h-5 text-white" />
-                    </motion.button>
+                    {/* Header Buttons */}
+                    <div className="flex items-center gap-3">
+                        {/* CTA "Hablemos" Button with Dropdown */}
+                        <div className="relative cta-dropdown">
+                            <motion.button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsCtaOpen(!isCtaOpen);
+                                }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
+                                className="flex items-center gap-3 px-4 py-3 rounded-2xl transition-all"
+                                style={{
+                                    background: 'linear-gradient(135deg, #FF0080 0%, #7928CA 50%, #FF0080 100%)',
+                                    backgroundSize: '200% 200%',
+                                    animation: 'gradient-shift 3s ease infinite',
+                                    boxShadow: '0 0 25px rgba(255, 0, 128, 0.4), 0 0 50px rgba(121, 40, 202, 0.25)'
+                                }}
+                                aria-label="Hablemos - Contactar"
+                            >
+                                {/* Invisible spacer to align text with dropdown icons */}
+                                <div className="w-4 h-4" />
+                                <span className="text-sm font-medium text-white tracking-wide">Hablemos</span>
+                                <ChevronDown className={`w-4 h-4 text-white/80 transition-transform ${isCtaOpen ? 'rotate-180' : ''}`} />
+                            </motion.button>
+
+                            {/* Dropdown */}
+                            <AnimatePresence>
+                                {isCtaOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="absolute right-0 mt-2 w-max min-w-full rounded-xl glass overflow-hidden z-50"
+                                        style={{
+                                            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)'
+                                        }}
+                                    >
+                                        <a
+                                            href={whatsappUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-all"
+                                            onClick={() => setIsCtaOpen(false)}
+                                        >
+                                            <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                                            <span className="text-sm text-white/90">WhatsApp</span>
+                                        </a>
+                                        <a
+                                            href={`tel:${phoneNumber}`}
+                                            className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-all border-t border-white/10"
+                                            onClick={() => setIsCtaOpen(false)}
+                                        >
+                                            <Phone className="w-4 h-4 text-white/70" />
+                                            <span className="text-sm text-white/90">Llamar</span>
+                                        </a>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Bio Button - Gray/Muted */}
+                        <motion.button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsBioOpen(true);
+                            }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-11 h-11 rounded-full flex items-center justify-center transition-all bg-white/10 hover:bg-white/15 border border-white/10"
+                            aria-label="Conoce más sobre EGO"
+                        >
+                            <User className="w-5 h-5 text-white/60" />
+                        </motion.button>
+                    </div>
                 </motion.header>
 
                 {/* Controls */}
