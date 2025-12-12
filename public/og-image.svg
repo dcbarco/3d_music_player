@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="630" fill="#050505"/>
+    <rect width="1200" height="630" fill="url(#gradient)" opacity="0.2"/>
+    
+    <!-- Abstract Waves/Forms -->
+    <path d="M0 315C200 315 300 100 600 315C900 530 1000 315 1200 315V630H0V315Z" fill="url(#gradient)" opacity="0.1"/>
+    
+    <!-- Text -->
+    <text x="600" y="280" font-family="serif" font-style="italic" font-size="120" fill="white" text-anchor="middle" letter-spacing="0.05em">EGO</text>
+    <text x="600" y="360" font-family="sans-serif" font-size="24" fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="0.3em" text-transform="uppercase">Arquitectura Sonora</text>
+
+    <defs>
+        <linearGradient id="gradient" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF0080"/>
+            <stop offset="0.5" stop-color="#7928CA"/>
+            <stop offset="1" stop-color="#06B6D4"/>
+        </linearGradient>
+    </defs>
+</svg>

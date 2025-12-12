@@ -9,6 +9,8 @@ export const useAudioAnalyzer = (initialSession = 'session1') => {
     const [isLoading, setIsLoading] = useState(true);
     const [hasUserInteracted, setHasUserInteracted] = useState(false);
     const [playlist, setPlaylist] = useState([]);
+    const [buffered, setBuffered] = useState(0); // Buffer progress (0-1)
+    const [isSeeking, setIsSeeking] = useState(false); // Seeking state for UI feedback
 
     const audioRef = useRef(null);
     const audioContextRef = useRef(null);
@@ -35,7 +37,7 @@ export const useAudioAnalyzer = (initialSession = 'session1') => {
     useEffect(() => {
         const audio = new Audio();
         audio.crossOrigin = 'anonymous';
-        audio.preload = 'metadata';
+        audio.preload = 'auto'; // Aggressive preload for better seeking
         audioRef.current = audio;
 
         audio.addEventListener('loadedmetadata', () => {
@@ -53,6 +55,18 @@ export const useAudioAnalyzer = (initialSession = 'session1') => {
                 setProgress(audio.currentTime / audio.duration);
             }
         });
+
+        // Buffer progress tracking
+        audio.addEventListener('progress', () => {
+            if (audio.buffered.length > 0 && audio.duration) {
+                const bufferedEnd = audio.buffered.end(audio.buffered.length - 1);
+                setBuffered(bufferedEnd / audio.duration);
+            }
+        });
+
+        // Seeking state tracking
+        audio.addEventListener('seeking', () => setIsSeeking(true));
+        audio.addEventListener('seeked', () => setIsSeeking(false));
 
         audio.addEventListener('waiting', () => setIsLoading(true));
         audio.addEventListener('canplay', () => setIsLoading(false));
@@ -188,7 +202,9 @@ export const useAudioAnalyzer = (initialSession = 'session1') => {
         togglePlay,
         isPlaying,
         isLoading: isLoading || playlist.length === 0,
+        isSeeking,
         progress,
+        buffered,
         duration,
         seek,
         currentSession,

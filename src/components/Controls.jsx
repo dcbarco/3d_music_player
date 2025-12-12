@@ -7,7 +7,9 @@ const Controls = ({
     trackName,
     isPlaying,
     isLoading,
+    isSeeking = false,
     progress,
+    buffered = 0,
     duration = 0,
     onSeek,
     currentSession,
@@ -41,6 +43,9 @@ const Controls = ({
         const secs = totalSeconds % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
+
+    // Show loading state when seeking or loading
+    const showLoading = isLoading || isSeeking;
 
     return (
         <>
@@ -80,7 +85,7 @@ const Controls = ({
                             }}
                             aria-label={isPlaying ? 'Pausar' : 'Reproducir'}
                         >
-                            {isLoading ? (
+                            {showLoading ? (
                                 <Loader2 className="w-6 h-6 text-white/80 animate-spin" />
                             ) : isPlaying ? (
                                 <Pause className="w-6 h-6 text-white" />
@@ -100,8 +105,17 @@ const Controls = ({
                             onTouchMove={handleTouchMove}
                         >
                             <div className="seeker-track" style={{
-                                background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)'
+                                background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%)'
                             }}>
+                                {/* Buffer progress bar */}
+                                <div
+                                    className="absolute top-0 left-0 h-full rounded-sm transition-all duration-300"
+                                    style={{
+                                        width: `${buffered * 100}%`,
+                                        background: 'rgba(255, 255, 255, 0.15)'
+                                    }}
+                                />
+                                {/* Playback progress bar */}
                                 <div
                                     className="seeker-progress"
                                     style={{

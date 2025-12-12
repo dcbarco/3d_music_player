@@ -9,7 +9,8 @@ const BioModal = ({ isOpen, onClose }) => {
         'Chillout',
         'Jazz House',
         'Trip-hop',
-        'World Music'
+        'World Music',
+        'Lo-Fi'
     ];
 
     const references = ['Hotel Costes', 'Café del Mar', 'Buddha Bar'];
@@ -69,11 +70,11 @@ const BioModal = ({ isOpen, onClose }) => {
                             transition={{ delay: 0.3 }}
                             className="space-y-3 mb-6"
                         >
-                            <p className="text-sm leading-relaxed text-white/70 font-light">
-                                La música no es solo sonido, es la atmósfera que define un espacio. Con más de 10 años en la escena electrónica, <span className="text-white/90">EGO</span> se especializa en convertir entornos físicos en salas de escucha especializada.
+                            <p className="text-sm leading-snug text-white/70 font-light text-justify">
+                                La identidad de un espacio no se construye con ruido, sino con atmósfera. <span className="text-white/90">EGO</span> redefine la experiencia sonora, alejándose del formato convencional en vivo para diseñar entornos inmersivos de alta sofisticación.
                             </p>
-                            <p className="text-sm leading-relaxed text-white/70 font-light">
-                                Lejos del consumo comercial masivo, la propuesta eleva la identidad de lugares como restaurantes, bares y espacios con estilo a través de una curaduría sonora especifica para cada lugar. Desde el Microhouse, Jazz, Chill, Deep, Lounge hasta texturas de Acid Jazz y World Music, diseño experiencias para audiencias que valoran la sofisticación.
+                            <p className="text-sm leading-snug text-white/70 font-light text-justify">
+                                Nuestra curaduría para espacios de concepto actúa como un hilo invisible que invita a la permanencia. Convertimos la música en una herramienta estratégica de retención, creando una narrativa sonora que conecta profundamente con audiencias exigentes.
                             </p>
                         </motion.div>
 

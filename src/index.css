@@ -58,6 +58,14 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Glass sidebar for desktop */
+.glass-sidebar {
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 /* Seeker bar styles */
 .seeker-container {
   position: relative;
@@ -121,6 +129,19 @@ body {
   left: 0;
   z-index: 10;
   pointer-events: none;
+}
+
+/* On desktop, ui-overlay should not cover sidebar */
+@media (min-width: 1024px) {
+  .ui-overlay {
+    width: calc(100% - 320px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .ui-overlay {
+    width: calc(100% - 380px);
+  }
 }
 
 .ui-overlay>* {
